@@ -1,0 +1,6 @@
+@TollCalculatorAPI_HostAddress = http://localhost:5048
+
+GET {{TollCalculatorAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
