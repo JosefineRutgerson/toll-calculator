@@ -4,13 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TollFeeCalculator
+namespace TollCalculatorAPI.Models
 {
     public class Motorbike : Vehicle
     {
-        public string GetVehicleType()
+        public Motorbike()
+        {
+            Type = "Motorbike";
+        }
+        public override string GetVehicleType()
         {
             return "Motorbike";
         }
     }
 }
+ 
+

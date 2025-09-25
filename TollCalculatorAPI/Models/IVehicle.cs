@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TollFeeCalculator
+namespace TollCalculatorAPI.Models 
 {
-    public interface Vehicle
+    public interface IVehicle
     {
+        string Type { get; set; }
+        List<VehicleDate> SavedDates { get; set; }
         String GetVehicleType();
     }
 }
