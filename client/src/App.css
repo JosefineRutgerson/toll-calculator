@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --orange: #f98f45;  /* Example purple */
+  --darkOrange: #c4421a; /* Example orange */
+  --teal: #12908e;    /* Example green */
+  --lightteal: #97cecc; /* Light gray background */
+  --darkteal: #16594a;  
+
+}
+
+#root {
+  
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+}
+
+.logo {
+  height: 2rem;
+  padding: 0.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  text-align: left;
+  padding-bottom: 1.4em;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  margin: 0;  
+  
+  
+}
+
+.myapp {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: var(--lightteal);
+  font-size: 1.2em;
+  text-align: left;
+}
+
+header {
+  
+  background-color: var(--orange);
+  padding: 0rem 0;
+  color: white;
+  font-size: 1.5em;
+}
+
+footer {
+  
+  padding: 1rem;
+  font-size: 0.875em;
+  color: var(--darkOrange);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: var(--teal);
+  font-size: 1.5em;
+}
+
+nav {
+  background-color: var(--darkOrange);
+  padding: 0.5rem 0rem 0.5rem 0rem;
+  margin-top: 0.5rem;
+  font-size: 0.8em;
+}
+
+h1 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: left;
+}
+
+h2 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: left;
+}
+
+ul {
+  list-style: none;
+  padding: 0.5rem 1rem;
+}
+
+p {
+  padding: 0.5rem 1rem;
+}

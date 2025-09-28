@@ -6,6 +6,7 @@
       {
         "Id": 101,
         "Type": "Car",
+        "RegistrationNumber": "STU-707",
         "SavedDates": [
           {
             "Date": "2025-09-24T09:15:00"
@@ -75,6 +76,7 @@
       {
         "Id": 102,
         "Type": "Car",
+        "RegistrationNumber": "PLY-707",
         "SavedDates": [
           {
             "Date": "2025-09-24T15:00:00"
@@ -150,6 +152,7 @@
       {
         "Id": 201,
         "Type": "Car",
+        "RegistrationNumber": "MOD-507",
         "SavedDates": [
           {
             "Date": "2025-09-24T11:00:00"
@@ -219,6 +222,7 @@
       {
         "Id": 202,
         "Type": "Motorbike",
+        "RegistrationNumber": "FRG-359",
         "SavedDates": [
           {
             "Date": "2025-09-24T18:00:00"
@@ -294,6 +298,7 @@
       {
         "Id": 301,
         "Type": "Car",
+        "RegistrationNumber": "LKM-875",
         "SavedDates": [
           {
             "Date": "2025-09-24T09:00:00"
@@ -363,6 +368,7 @@
       {
         "Id": 302,
         "Type": "Diplomat",
+        "RegistrationNumber": "DIP-001",
         "SavedDates": [
           {
             "Date": "2025-09-24T19:00:00"
@@ -434,10 +440,12 @@
   {
     "Id": 4,
     "Name": "Gunde Bj\u00f6rk",
+    "RegistrationNumber": "EDR-598",
     "Vehicles": [
       {
         "Id": 401,
         "Type": "Car",
+        "RegistrationNumber": "BOO-999",
         "SavedDates": [
           {
             "Date": "2025-09-24T08:00:00"
@@ -507,6 +515,7 @@
       {
         "Id": 402,
         "Type": "Tractor",
+        "RegistrationNumber": "KJB-235",
         "SavedDates": [
           {
             "Date": "2025-09-24T06:00:00"

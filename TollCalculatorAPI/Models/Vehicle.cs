@@ -10,6 +10,7 @@ namespace TollCalculatorAPI.Models
     {
         public int Id { get; set; }
         public string Type { get; set; } = "";
+        public string RegistrationNumber { get; set; } = ""; 
         public List<VehicleDate> SavedDates { get; set; } = new();
         public virtual String GetVehicleType()
         {
