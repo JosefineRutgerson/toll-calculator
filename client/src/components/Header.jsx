@@ -3,7 +3,7 @@ export default function Header() {
     <header >
       <div className="logo">Toll Calculator</div>
       <nav>
-        <a href="/">Home</a> | <a href="/users">Users</a>
+        <a href="/">Hem</a> | <a href="/users">Användare</a>
       </nav>
     </header>
   )

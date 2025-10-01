@@ -1,8 +1,8 @@
 export default function Home() {
   return (
     <div>
-      <h1>Welcome to the Toll Calculator</h1>
-      <p>Select "Users" to view mock user data.</p>
+      <h1>Välkomen till Toll Calculator</h1>
+      <p>Navigera till "Användare" i menyn för att se användarprofiler.</p>
     </div>
   )
 }
