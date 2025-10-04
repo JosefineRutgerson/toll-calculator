@@ -7,6 +7,7 @@ import Layout from "./components/Layout"
 import Home from "./pages/Home"
 import Users from "./pages/Users"
 import User from "./pages/User"
+import VehicleDetails from "./pages/VehicleDetails"
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="users" element={<Users />} />
           <Route path="users/:name" element={<User />} />
+          <Route path="/user/:name/vehicle/:regNumber" element={<VehicleDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

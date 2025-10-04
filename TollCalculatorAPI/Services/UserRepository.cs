@@ -13,20 +13,20 @@ public class UserRepository : IUserRepository
 
     public UserRepository(IWebHostEnvironment env)
     {
-        // Get the absolute path to your JSON file
+        // Bestäm sökvägen till mockdata.json-filen
         var filePath = Path.Combine(env.ContentRootPath, "Data", "mockdata.json");
 
         if (File.Exists(filePath))
         {
-            // Read JSON from file
+            // läs in JSON-filen
             var json = File.ReadAllText(filePath);
 
-            // Convert JSON into List<User>
+            // konvertera JSON till lista av User-objekt
             _users = JsonConvert.DeserializeObject<List<User>>(json) ?? new List<User>();
         }
         else
         {
-            _users = new List<User>(); // fallback if no file
+            _users = new List<User>(); // om filen inte finns, initiera en tom lista
         }
     }
 

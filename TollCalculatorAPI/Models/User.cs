@@ -10,6 +10,8 @@ namespace TollCalculatorAPI.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = "";
-        public List<Vehicle> Vehicles { get; set; } = new(); 
+        public List<Vehicle> Vehicles { get; set; } = new();         
+
+        public int CurrentMonthlyFee { get; set; } = 0;
     }
 }

@@ -6,46 +6,93 @@ namespace TollCalculatorAPI.Services
 {
     public class TollCalculatorService : ITollCalculatorService
     {
+      
 
-        /**
-         * Calculate the total toll fee for one day
-         *
-         * @param vehicle - the vehicle
-         * @param dates   - date and time of all passes on one day
-         * @return - the total toll fee for that day
-         */
-
-        public int GetTollFee(Vehicle vehicle, DateTime[] dates)
+        public void PopulateFeesForVehicle(Vehicle vehicle)
         {
-            DateTime intervalStart = dates[0];
-            int totalFee = 0;
-            foreach (DateTime date in dates)
+            if (vehicle.SavedDates == null || vehicle.SavedDates.Count == 0)
+                return;
+
+            // Gruppera datum per dag
+            var groupedByDay = vehicle.SavedDates
+                .OrderBy(d => d.Date)
+                .GroupBy(d => d.Date.Date);
+
+            foreach (var dayGroup in groupedByDay)
             {
-                int nextFee = GetTollFee(date, vehicle);
-                int tempFee = GetTollFee(intervalStart, vehicle);
+                var dates = dayGroup.OrderBy(d => d.Date).ToList();
+                DateTime? windowStart = null;
+                int windowMaxFee = 0;
+                int dailyFee = 0;
 
-                long diffInMillies = date.Millisecond - intervalStart.Millisecond;
-                long minutes = diffInMillies / 1000 / 60;
-
-                if (minutes <= 60)
+                foreach (var vd in dates)
                 {
-                    if (totalFee > 0) totalFee -= tempFee;
-                    if (nextFee >= tempFee) tempFee = nextFee;
-                    totalFee += tempFee;
+                    var currentFee = GetTollFee(vd.Date, vehicle);
+
+                    if (windowStart == null)
+                    {
+                        // Första tidpunkten i dagen
+                        windowStart = vd.Date;
+                        windowMaxFee = currentFee;
+                        vd.Fee = 0; // We'll assign later
+                        continue;
+                    }
+
+                    // kolla tidsskillnaden från windowStart
+                    var minutes = (vd.Date - windowStart.Value).TotalMinutes;
+
+                    if (minutes <= 60)
+                    {
+                        // Inom samma 60-minuters fönster
+                        if (currentFee > windowMaxFee)
+                            windowMaxFee = currentFee;
+
+                        vd.Fee = 0; // så att vi bara debiterar en gång per fönster
+                    }
+                    else
+                    {
+                        // Slut på föregående fönster så tilldela dess avgift till det första datumet
+                        var firstInWindow = dates.First(d => d.Date == windowStart.Value);
+                        firstInWindow.Fee = windowMaxFee;
+
+                        dailyFee += windowMaxFee;
+
+                        // respektera daglig maxkostnad
+                        if (dailyFee >= 60)
+                        {
+                            firstInWindow.Fee = Math.Max(0, 60 - (dailyFee - windowMaxFee));
+                            // resterande datum blir noll
+                            foreach (var rest in dates.Where(d => d.Date >= vd.Date))
+                            rest.Fee = 0;
+                            break;
+                        }
+
+                        // börja nytt fönster
+                        windowStart = vd.Date;
+                        windowMaxFee = currentFee;
+                        vd.Fee = 0;
+                    }
                 }
-                else
+
+                // stäng sista fönstret för dagen
+                if (windowStart != null && dailyFee < 60)
                 {
-                    totalFee += nextFee;
+                    var firstInWindow = dates.First(d => d.Date == windowStart.Value);
+                    firstInWindow.Fee = windowMaxFee;
+
+                    dailyFee += windowMaxFee;
+
+                    // Respektera daglig maxkostnad
+                    if (dailyFee > 60)
+                        firstInWindow.Fee -= (dailyFee - 60);
                 }
             }
-            if (totalFee > 60) totalFee = 60;
-            return totalFee;
         }
 
         private bool IsTollFreeVehicle(Vehicle vehicle)
         {
             if (vehicle == null) return false;
-            String vehicleType = vehicle.Type;
+            String vehicleType = vehicle.Type; // Ändrade så att det använder Type property
             if (string.IsNullOrEmpty(vehicleType)) return false;
             return vehicleType.Equals(TollFreeVehicles.Motorbike.ToString()) ||
                    vehicleType.Equals(TollFreeVehicles.Tractor.ToString()) ||
@@ -57,46 +104,68 @@ namespace TollCalculatorAPI.Services
 
         public int GetTollFee(DateTime date, Vehicle vehicle)
         {
-            if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) return 0;
+            // Kollar om det är en avgiftsfri dag eller fordon
+            if (IsTollFreeDate(date) || IsTollFreeVehicle(vehicle)) 
+                return 0;
 
             int hour = date.Hour;
             int minute = date.Minute;
 
-            if (hour == 6 && minute >= 0 && minute <= 29) return 8;
-            else if (hour == 6 && minute >= 30 && minute <= 59) return 13;
-            else if (hour == 7 && minute >= 0 && minute <= 59) return 18;
-            else if (hour == 8 && minute >= 0 && minute <= 29) return 13;
-            else if (hour >= 8 && hour <= 14 && minute >= 30 && minute <= 59) return 8;
-            else if (hour == 15 && minute >= 0 && minute <= 29) return 13;
-            else if (hour == 15 && minute >= 0 || hour == 16 && minute <= 59) return 18;
-            else if (hour == 17 && minute >= 0 && minute <= 59) return 13;
-            else if (hour == 18 && minute >= 0 && minute <= 29) return 8;
-            else return 0;
+            // Morgon
+            if (hour == 6 && minute <= 29) return 8;
+            if (hour == 6 && minute >= 30) return 13;
+            if (hour == 7) return 18;
+            if (hour == 8 && minute <= 29) return 13;
+
+            // Lunch
+            if ((hour == 8 && minute >= 30) || (hour >= 9 && hour <= 14)) return 8;
+
+            // Eftermiddag
+            if (hour == 15 && minute <= 29) return 13;
+            if ((hour == 15 && minute >= 30) || hour == 16) return 18;
+            if (hour == 17) return 13;
+            if (hour == 18 && minute <= 29) return 8;
+
+            // Kväll och natt
+            return 0;
         }
 
-        private Boolean IsTollFreeDate(DateTime date)
+        private bool IsTollFreeDate(DateTime date)
         {
-            int year = date.Year;
-            int month = date.Month;
-            int day = date.Day;
+            // Helger är alltid avgiftsfria
+            if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
+              return true;
+              
+            // Juli = avgiftsfri månad
+            if (date.Month == 7)
+            return true;
 
-            if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday) return true;
+            // Endast hårdkodat för 2025
+            if (date.Year != 2025)
+                return false;
 
-            if (year == 2013)
+            // Röda dagar och aftnar i Sverige 2025
+            var holidays2025 = new HashSet<(int Month, int Day)>
             {
-                if (month == 1 && day == 1 ||
-                    month == 3 && (day == 28 || day == 29) ||
-                    month == 4 && (day == 1 || day == 30) ||
-                    month == 5 && (day == 1 || day == 8 || day == 9) ||
-                    month == 6 && (day == 5 || day == 6 || day == 21) ||
-                    month == 7 ||
-                    month == 11 && day == 1 ||
-                    month == 12 && (day == 24 || day == 25 || day == 26 || day == 31))
-                {
-                    return true;
-                }
-            }
-            return false;
+                (1, 1),    // Nyårsdagen
+                (1, 6),    // Trettondedag jul
+                (4, 18),   // Långfredagen
+                (4, 20),   // Påskdagen
+                (4, 21),   // Annandag påsk
+                (5, 1),    // Första maj
+                (5, 29),   // Kristi himmelsfärdsdag
+                (6, 6),    // Sveriges nationaldag
+                (6, 20),   // Midsommarafton
+                (6, 21),   // Midsommardagen
+                (11, 1),   // Alla helgons dag
+                (12, 24),  // Julafton
+                (12, 25),  // Juldagen
+                (12, 26),  // Annandag jul
+                (12, 31)   // Nyårsafton
+
+            };
+
+            return holidays2025.Contains((date.Month, date.Day));
         }
 
         private enum TollFreeVehicles

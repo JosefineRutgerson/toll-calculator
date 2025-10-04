@@ -9,7 +9,7 @@ namespace TollCalculatorAPI.Services
 {
     public interface ITollCalculatorService
     {
-        int GetTollFee(Vehicle vehicle, DateTime[] dates);
+        void PopulateFeesForVehicle(Vehicle vehicle);
         int GetTollFee(DateTime date, Vehicle vehicle);
     }
 }

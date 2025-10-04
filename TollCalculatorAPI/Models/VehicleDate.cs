@@ -9,5 +9,6 @@ namespace TollCalculatorAPI.Models
     public class VehicleDate
     {
         public DateTime Date { get; set; }
+        public int Fee { get; set; }
     }
 }

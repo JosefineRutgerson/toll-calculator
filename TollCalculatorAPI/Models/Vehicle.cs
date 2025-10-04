@@ -12,6 +12,10 @@ namespace TollCalculatorAPI.Models
         public string Type { get; set; } = "";
         public string RegistrationNumber { get; set; } = ""; 
         public List<VehicleDate> SavedDates { get; set; } = new();
+        public List<VehicleDate> SavedDatesCurrentMonth { get; set; } = new();
+
+        public int CurrentMonthlyFee { get; set; } = 0;
+
         public virtual String GetVehicleType()
         {
             return "Vehicle";

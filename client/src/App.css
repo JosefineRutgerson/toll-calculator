@@ -14,11 +14,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --orange: #f98f45;  /* Example purple */
-  --darkOrange: #c4421a; /* Example orange */
-  --teal: #12908e;    /* Example green */
-  --lightteal: #97cecc; /* Light gray background */
+  --orange: #f98f45;  
+  --darkOrange: #c4421a; 
+  --teal: #12908e;    
+  --lightteal: #97cecc; 
   --darkteal: #16594a;  
+  --darkerteal: #114539;
 
 }
 
@@ -136,9 +137,18 @@ h1 {
 h2 {
   margin: 0;
   padding: 0.5rem 1rem;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bold;
   text-align: left;
+}
+
+h3 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: left;
+  font-style: italic;
 }
 
 ul {
@@ -148,6 +158,10 @@ ul {
 
 p {
   padding: 0.5rem 1rem;
+}
+
+.profile-details p {
+  padding: 0.1rem 1rem;
 }
 
 a:hover {
@@ -170,6 +184,16 @@ a:hover {
  
 }
 
+.profile-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0rem;
+  flex-wrap: wrap;    
+  justify-content: left;
+  
+}
+
 .cursive {
   font-style: italic;
 }
@@ -177,4 +201,36 @@ a:hover {
 .fee {
   font-weight: bold;
   color: var(--orange);
+}
+
+/* Vehicle Details Page */
+.vehicle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: var(--darkteal);
+ 
+}
+
+.vehicle-container a {
+  display: inline-block;
+  width: fit-content;
+}
+
+.dates-list {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex: 1;
+  background-color: var(--darkerteal);
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.dates-list h2 {  
+  width: 100%; 
+  
 }
