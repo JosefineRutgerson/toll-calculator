@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #fff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --orange: #f98f45;  
+  --darkOrange: #c4421a; 
+  --teal: #12908e;    
+  --lightteal: #97cecc; 
+  --darkteal: #16594a;  
+  --darkerteal: #114539;
+
+}
+
+#root {
+  
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+}
+
+.logo {
+  height: 2rem;
+  padding: 0.5em;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  text-align: left;
+  padding-bottom: 1.4em;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  margin: 0;  
+  
+  
+}
+
+.myapp {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  width: 100%;
+}
+
+main {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: var(--darkteal);
+  font-size: 1.2em;
+  text-align: left;
+}
+
+header {
+  
+  background-color: var(--orange);
+  padding: 0rem 0;
+  color: white;
+  font-size: 1.5em;
+}
+
+footer {  
+  padding: 0.5rem;
+  font-size: 0.875em;
+  font-weight: bold;
+  color: var(--orange);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: var(--teal);
+  font-size: 1.5em;
+  border-bottom: 4px solid var(--orange);
+}
+
+footer p {
+  padding: 0;
+  padding-right: 0.2rem;
+  font-size: 0.8em;
+  text-align: right;
+}
+
+nav {
+  background-color: var(--darkOrange);
+  
+  margin-top: 0.5rem;
+  font-size: 0.8em;
+  padding: 0.5rem 1.4rem;
+  text-align: left;
+}
+
+h1 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: left;
+}
+
+h2 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: left;
+}
+
+h3 {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: left;
+  font-style: italic;
+}
+
+ul {
+  list-style: none;
+  padding: 0.5rem 1rem;
+}
+
+p {
+  padding: 0.5rem 1rem;
+}
+
+.profile-details p {
+  padding: 0.1rem 1rem;
+}
+
+a:hover {
+  border-bottom: 2px solid #fff;
+}
+
+.user-image {
+  width: 150px;
+  height: 150px;  
+  overflow: hidden;  
+  margin-left: 22px;;
+}
+
+.user-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+ 
+}
+
+.profile-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0rem;
+  flex-wrap: wrap;    
+  justify-content: left;
+  
+}
+
+.cursive {
+  font-style: italic;
+}
+
+.fee {
+  font-weight: bold;
+  color: var(--orange);
+}
+
+/* Vehicle Details Page */
+.vehicle-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: var(--darkteal);
+ 
+}
+
+.vehicle-container a {
+  display: inline-block;
+  width: fit-content;
+}
+
+.dates-list {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex: 1;
+  background-color: var(--darkerteal);
+  padding: 1rem 1rem 2rem 1rem;
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.dates-list h2 {  
+  width: 100%; 
+  
+}
